@@ -1,0 +1,25 @@
+{
+  "name": "whatsapp",
+  "version": "1.0.0",
+  "description": "Live Chat App ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sikendrakumarverma/Backened-training.git"
+  },
+  "author": "Sikendra Kumar Verma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sikendrakumarverma/Backened-training/issues"
+  },
+  "homepage": "https://github.com/sikendrakumarverma/Backened-training#readme",
+  "devDependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20",
+    "socket.io": "^4.5.4"
+  }
+}
