@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat App</title>
+    <!-- <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js" integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    
+    <p>Hello world</p>
+
+    <script>
+        // connection
+        var socket = io();
+
+        // 1. Recieving data from backend by preserved message event
+        socket.on('message', function(data){
+            //console.log(data)
+              document.body.innerHTML = '';
+             document.write(data);
+         });
+
+        // 2. Sending data from client side to backend by custom event
+        socket.emit('myCustomEventOfClient',{msg: 'this message from the client side'});
+
+        // // Recieving event
+        // socket.on('newUserConnected', function(data){
+        //     //console.log(data)
+        //      document.body.innerHTML = '';
+        //     document.write(data.message);
+        // });
+    </script>
+
+</body>
+</html>
