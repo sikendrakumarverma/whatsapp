@@ -5,26 +5,76 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whatsapp chat app</title>
-    <link rel="stylesheet" href="/style.css">
-    
+    <title>Live Chatting</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/3609ec7de6.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
 
-    <div class="chat__section">
-        <div class="brand">
-            <img height="40" class="logo" src="/logo.png" alt="">
-            <h1>  Welcome to Realtime BateKare App</h1>
+    <main>
+        <header>
+            <div>
+                <img src="logo.png" width="35px">
+                <h1>AaoChale Bate Kare</h1>
+            </div>
+            <button type="button" onclick="showHide()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </header>
+        <div class="container">
+            <div class="users-window">
+                <div class="users-head">
+                    <h3>People</h3>
+                    <h4 class="users-count">1</h4>
+                </div>
+                <div class="users-list">
+                    <!-- <p>Sikendra</p>
+                    <p>Saiprasad</p>
+                    <p>Sagar</p>
+                    <p>Suyash</p> -->
+                </div>
+            </div>
+            <div class="chat-window">
+                <div class="chats">
+                    <!-- <div class="user-join">
+                        <p><b>jarvis</b> joined the chat</p>
+                    </div>
+                    <div class="message incoming">
+                        <h5>Sikendra</h5>
+                        <p>Hello Saiprasad</p>
+                    </div>
+                    <div class="message outgoing">
+                        <h5>Saiprasad</h5>
+                        <p>welcome Sikendra</p>
+                    </div> -->
+                </div>
+                <div class="user-input">
+                    <input id="user-msg" type="text" placeholder="Type your message...">
+                    <button id="user-send" type="button">Send</button>
+                </div>
+            </div>
         </div>
-        <div class="message__area"></div>
-        <div>
-            <textarea id="textarea" cols="30" rows="1" placeholder="Write a message...And press Enter key"></textarea>
-        </div>
-    </div>
-    
+    </main>
+
+    <script>
+        var uwindow = document.querySelector('.users-window');
+
+        function showHide() {
+            if (uwindow.style.display == "block") {
+                uwindow.style.display = "none";
+            } else {
+                uwindow.style.display = "block"
+            }
+        }
+    </script>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="/client.js"></script>
+
 </body>
 
 </html>

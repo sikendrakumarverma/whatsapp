@@ -1,30 +1,47 @@
-const express = require('express')
-const app = express()
-const http = require('http').createServer(app)
+const express = require('express');
+const app = express();
+const http = require('http').createServer(app);
 
-const PORT = process.env.PORT || 3000
+const port = process.env.PORT || 8080
 
-// Backend server environment
-http.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`)
-})
+app.use(express.static(__dirname + '/public'));
 
-// Tell using static file which is present inside the public folder
-app.use(express.static(__dirname + '/public'))
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/index.html');
+});
 
-//Deliver message of client 
-app.get('*', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
-})
+//socket.io setup
 
-//Binding Backend with Socket 
-const io = require('socket.io')(http)
+const io = require('socket.io')(http);
+let users = {};
 
-// When connected new user than broadcast all connected user
-io.on('connection', (socket) => {
-   // console.log('Connected...')
-    socket.on('message', (msg) => {
-        socket.broadcast.emit('message', msg)
-    })
+// when a user join cache all events by .on function
+io.on('connection', function (socket) {
+    // when a new user join
+    socket.on('new-user-joined', function (userName) {
+        users[socket.id] = userName; // storing users information in users.
+        // send an event by name of user-connected for already Connected users
+        socket.broadcast.emit('user-connected', userName);
+        // Globally send an event for users list and count
+        io.emit('user-list', users);
+    });
 
-})
+    // when a user leave or disconnect the chat
+    socket.on('disconnect', function () {
+        // send an event user-connected for Connected users
+        socket.broadcast.emit('user-disconnected', user = users[socket.id]);
+        delete users[socket.id]; // deleting users information from users.
+        // Globally send an event for users list and count
+        io.emit('user-list', users);
+    });
+
+    // Receiving message from client
+    socket.on('message', (data) => {
+        // Sending message to all users
+        socket.broadcast.emit('message', { user: data.user, msg: data.msg });
+    });
+});
+
+http.listen(port, () => {
+    console.log("App is running on port", port);
+});

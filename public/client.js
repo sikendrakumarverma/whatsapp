@@ -1,59 +1,107 @@
-const socket = io() // connect with backend
-let name; // store name of user
+// connection with backend socket server
+const socket = io();
+var name;
 
-// Get DOM elements in respective js variables
-let textarea = document.querySelector('#textarea')
-let messageArea = document.querySelector('.message__area')
+var chats = document.querySelector('.chats');
+var usersList = document.querySelector('.users-list');
+var usersCount = document.querySelector('.users-count');
+var userMsg = document.querySelector('#user-msg');
+var userSend = document.querySelector('#user-send');
 
-// // Ask new user name for joining
-do {
-    name = prompt('Please enter your name: ')
-} while(!name)
-
-textarea.addEventListener('keyup', (e) => {
-    if(e.key === 'Enter') {
-        sendMessage(e.target.value)
-    }
-})
-
-// Audio that will play on receiving message
+// Audio that will play on sendinging message
 var audio = new Audio('ting.mp3');
 
-function sendMessage(message) {
-    let msg = {
-        user: name,
-        message: message.trim()
+// Ask new user name for joining
+do {
+    name = prompt('Please enter your name: ');
+} while (!name);
+
+// send an event to backend with user name
+socket.emit('new-user-joined', name);
+
+// it will called when new user joined
+socket.on('user-connected', (joinedUser) => {
+    userJoinLeft(joinedUser, 'joined');
+});
+
+// function for uer join or left chat
+function userJoinLeft(name, status) {
+    let div = document.createElement('div');
+    div.classList.add('user-join');
+    let content = `<p><b>${name}</b> ${status} the chat</p>`
+    div.innerHTML = content;
+    chats.appendChild(div);
+}
+// it will called when user left
+socket.on('user-disconnected', (userLeft) => {
+    userJoinLeft(userLeft, 'left');
+});
+
+// for updating users list and users count
+socket.on('user-list', (allUsers) => {
+    usersList.innerHTML = '';
+    usersArr = Object.values(allUsers);
+    for (let i = 0; i < usersArr.length; i++) {
+        let p = document.createElement('p');
+        p.innerHTML = usersArr[i];
+        usersList.appendChild(p);
     }
-    // Append 
-    appendMessage(msg, 'outgoing')
-    audio.play();
-    textarea.value = ''
-    scrollToBottom()
+    usersCount.innerHTML = usersArr.length;
+});
 
-    // Send to server 
-    socket.emit('message', msg)
+// for sending messages by click
+userSend.addEventListener('click', (e) => {
+    let data = {
+        user: name,
+        msg: userMsg.value.trim()
+    };
+    if (userMsg.value != '') {
+        appendMessage(data, 'outgoing');
+        // sending an event for backend
+        socket.emit('message', data);
+        audio.play();
+        userMsg.value = "";
+        scrollToBottom();
+    }
+});
 
+// for sending messages by pressing Enter key
+userMsg.addEventListener('keyup', (e) => {
+    let data = {
+        user: name,
+        msg: userMsg.value.trim()
+    };
+    if (userMsg.value != '') {
+        if (e.key === 'Enter') {
+            appendMessage(data, 'outgoing');
+            // sending an event for backend
+            socket.emit('message', data);
+            audio.play();
+            userMsg.value = "";
+            scrollToBottom();
+        }
+    }
+});
+
+// Adding sending or recieving data in div
+function appendMessage(data, status) {
+    let div = document.createElement('div');
+    div.classList.add('message', status);
+    let contents = `
+  <h5>${data.user}</h5>
+  <p>${data.msg}</p>
+  `;
+    div.innerHTML = contents;
+    chats.appendChild(div);
 }
 
-function appendMessage(msg, type) {
-    let mainDiv = document.createElement('div')
-    let className = type
-    mainDiv.classList.add(className, 'message')
+// recieving message from backend
+socket.on('message', (data) => {
+    appendMessage(data, 'incoming');
+    scrollToBottom();
+});
 
-    let markup = `
-        <h4>${msg.user}</h4>
-        <p>${msg.message}</p>
-    `
-    mainDiv.innerHTML = markup
-    messageArea.appendChild(mainDiv)
-}
-
-// Recieve messages 
-socket.on('message', (msg) => {
-    appendMessage(msg, 'incoming')
-    scrollToBottom()
-})
-
+// for scrolling
 function scrollToBottom() {
-    messageArea.scrollTop = messageArea.scrollHeight
+    chats.scrollTop = chats.scrollHeight
 }
