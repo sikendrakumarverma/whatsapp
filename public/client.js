@@ -1,5 +1,6 @@
 // connection with backend socket server
-const socket = io();
+// const socket = io('http://localhost:8080');
+const socket = io('https://whatsapp2-one.vercel.app');
 var name;
 
 var chats = document.querySelector('.chats');

@@ -12,7 +12,16 @@ app.get('/', function (req, res) {
 
 //socket.io setup
 
-const io = require('socket.io')(http);
+// const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+    cors: {
+        origin: "https://whatsapp2-one.vercel.app",
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
+        credentials: true
+    },
+    allowEIO3: true
+});
 let users = {};
 
 // when a user join cache all events by .on function
