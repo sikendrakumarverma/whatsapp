@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
 // const io = require('socket.io')(http);
 const io = require('socket.io')(http, {
     cors: {
-        origin: "http://localhost:8080",
+        origin: "https://batekare.onrender.com",
         methods: ["GET", "POST"],
         transports: ['websocket', 'polling'],
         credentials: true
