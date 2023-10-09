@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
 // const io = require('socket.io')(http);
 const io = require('socket.io')(http, {
     cors: {
-        origin: "https://whatsapp2-one.vercel.app",
+        origin: "http://localhost:8080",
         methods: ["GET", "POST"],
         transports: ['websocket', 'polling'],
         credentials: true

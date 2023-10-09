@@ -1,7 +1,7 @@
 // connection with backend socket server
 // const socket = io('http://localhost:8080');
 // const socket = io('https://whatsapp2-one.vercel.app');
-socket = io("https://whatsapp2-one.vercel.app", {
+socket = io("http://localhost:8080", {
   transports: ['websocket']
 })
 var name;
