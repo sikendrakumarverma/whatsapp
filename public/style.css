@@ -89,6 +89,7 @@ main header button {
 }
 
 .users-list p {
+    margin-top: 5px;
     color: #0000CD;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
@@ -198,6 +199,12 @@ main header button {
 
     main header button {
         display: block;
+    }
+
+    main header div h1 {
+        /* font-family: cursive; */
+        font-size: 15px;
+        /* margin-left: 10px; */
     }
 
     .container {
