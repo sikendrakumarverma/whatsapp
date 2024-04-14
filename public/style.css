@@ -1,3 +1,8 @@
+/* import  from './users_winder.jpg';
+import  from './users_winder.jpg';
+import  from './users_winder.jpg'; */
+
+
 * {
     margin: 0;
     padding: 0;
@@ -25,7 +30,8 @@ main header {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-image: url('https://th.bing.com/th/id/OIP.8wiQJl0GonDsoLxyPHNQMwAAAA?pid=ImgDet&rs=1');
+    /* background-image: url('https://th.bing.com/th/id/OIP.8wiQJl0GonDsoLxyPHNQMwAAAA?pid=ImgDet&rs=1'); */
+    background-image: url('./header_background.jpg');
 
 }
 
@@ -72,7 +78,9 @@ main header button {
     padding: 15px 20px;
     border-radius: 10px;
     margin-right: 20px;
-    background-image: url('https://fsb.zobj.net/crop.php?r=nKwqe7d36zNwMNPx20_IkGPN5KQZuo9DzYvu-mwAo0CwuV8_63E_uw2q6Z6wRbO4Xj8EJI_FrL-ccbTxRR2tt_jFNVI-IiMDSr-HXs9lVgQm0mhfjhtjG9k6QIPQluoxHOxfgboThaRAQogEqriz4DPgkKmhxcICd6Lnu6_WrXuGy-VBxLDtJbhfYTqTguxcDMezaYHzEGM80_zz');
+    /* background-image: url('https://img.freepik.com/premium-vector/modern-whatsapp-background_23-2147900936.jpg?w=740'); */
+    /* background-image: url('./users_list_window.jpg'); */
+    background-image: url('./users_window_updated.jpg');
 }
 
 .users-head {
@@ -90,7 +98,7 @@ main header button {
 
 .users-list p {
     margin-top: 5px;
-    color: #0000CD;
+    color: #000000;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
     font-weight: 600;
@@ -103,7 +111,8 @@ main header button {
     border-radius: 10px;
     background-color: #3f3f3f;
     background-size: 250px 550px ;
-    background-image: url('https://wallpapercave.com/wp/wp6028953.jpg');
+    /* background-image: url('https://wallpapercave.com/wp/wp6028953.jpg'); */
+    background-image: url('./chat_window.jpg');
 }
 
 .chats {
